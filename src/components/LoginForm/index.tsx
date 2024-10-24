@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -17,7 +19,7 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    if (username === 'admin' && password === 'password') {
+    if (username === 'admin' && password === 'admin') {
       if (typeof window !== 'undefined') {
         localStorage.setItem('loggedIn', 'true');
       }
