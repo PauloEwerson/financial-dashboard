@@ -8,8 +8,12 @@ import {
   getTotalDeposits,
   getTotalWithdrawals,
   getPendingTransactions,
+  getChartData,
+  ChartData
 } from '@/services/transactionsService';
 import SummaryCard from '@/components/SummaryCard';
+import StackedBarChart from '@/components/StackedBarChart';
+import LineChartComponent from '@/components/LineChartComponent';
 import {
   DashboardContainer,
   Header,
@@ -24,6 +28,7 @@ const DashboardPage: React.FC = () => {
   const [totalDeposits, setTotalDeposits] = useState<number>(0);
   const [totalWithdrawals, setTotalWithdrawals] = useState<number>(0);
   const [pendingTransactions, setPendingTransactions] = useState<number>(0);
+  const [chartData, setChartData] = useState<ChartData[]>([]);
 
   useEffect(() => {
     const loggedIn = isLoggedIn();
@@ -36,6 +41,7 @@ const DashboardPage: React.FC = () => {
       setTotalDeposits(getTotalDeposits());
       setTotalWithdrawals(getTotalWithdrawals());
       setPendingTransactions(getPendingTransactions());
+      setChartData(getChartData());
     }
   }, []);
 
@@ -67,6 +73,8 @@ const DashboardPage: React.FC = () => {
           color="#ffc107"
         />
       </CardsContainer>
+      <StackedBarChart data={chartData} />
+      <LineChartComponent data={chartData} />
     </DashboardContainer>
   );
 
