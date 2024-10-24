@@ -1,6 +1,7 @@
 import React from 'react';
 import StyledComponentsRegistry from '@/lib/registry';
 import GlobalStyles from '@/styles/GlobalStyles';
+import { FilterProvider } from '@/contexts/FilterContext';
 
 export const metadata = {
   title: 'Financial Dashboard',
@@ -17,7 +18,7 @@ export default function RootLayout({
       <body>
         <StyledComponentsRegistry>
           <GlobalStyles />
-          {children}
+          <FilterProvider>{children}</FilterProvider>
         </StyledComponentsRegistry>
       </body>
     </html>
