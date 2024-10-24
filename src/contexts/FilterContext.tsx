@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { TransactionFilters } from '@/services/transactionsService';
 
 interface FilterContextProps {
@@ -11,7 +11,19 @@ interface FilterContextProps {
 const FilterContext = createContext<FilterContextProps | undefined>(undefined);
 
 export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [filters, setFilters] = useState<TransactionFilters>({});
+  const [filters, setFilters] = useState<TransactionFilters>(() => {
+    if (typeof window !== 'undefined') {
+      const savedFilters = localStorage.getItem('filters');
+      return savedFilters ? JSON.parse(savedFilters) : {};
+    }
+    return {};
+  });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('filters', JSON.stringify(filters));
+    }
+  }, [filters]);
 
   return (
     <FilterContext.Provider value={{ filters, setFilters }}>

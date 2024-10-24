@@ -6,4 +6,8 @@ export const ChartContainer = styled.div`
   margin-top: 20px;
   border-radius: 8px;
   box-shadow: 0px 0px 5px #cccccc;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
