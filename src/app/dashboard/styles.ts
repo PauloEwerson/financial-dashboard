@@ -1,30 +1,29 @@
 import styled from 'styled-components';
 
-export const DashboardContainer = styled.div`
-  padding: 20px;
+export const DashboardWrapper = styled.div`
+  display: flex;
 `;
 
-export const Header = styled.header`
+export const ContentWrapper = styled.div`
+  margin-left: 200px;
+  padding: 20px;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
+`;
+
+export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-export const LogoutButton = styled.button`
-  padding: 8px 16px;
-  background-color: #e00;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #c00;
-  }
-`;
-
 export const CardsContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
   margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 20px;
 `;

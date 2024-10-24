@@ -5,18 +5,20 @@ export const CardContainer = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 0px 5px #cccccc;
-  flex: 1;
+  flex: 1 1 200px;
   min-width: 200px;
-  margin: 10px;
+
+  @media (max-width: 768px) {
+    flex: 1 1 100%;
+  }
 `;
 
-export const Title = styled.h2`
-  font-size: 18px;
-  color: #333333;
+export const Title = styled.h3`
+  margin-bottom: 10px;
 `;
 
 export const Amount = styled.p<{ color?: string }>`
-  font-size: 24px;
+  font-size: 1.5rem;
+  color: ${({ color }) => color || '#000'};
   font-weight: bold;
-  color: ${({ color }) => color || '#0070f3'};
 `;

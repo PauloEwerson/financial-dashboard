@@ -10,38 +10,6 @@ export interface Transaction {
   state: string;
 }
 
-const transactions: Transaction[] = transactionsData as Transaction[];
-
-export const getTransactions = (): Transaction[] => {
-  return transactions;
-};
-
-export const getTotalAmount = (): number => {
-  const total = transactions.reduce((acc, transaction) => {
-    const amount = parseInt(transaction.amount);
-    return acc + (transaction.transaction_type === 'deposit' ? amount : -amount);
-  }, 0);
-  return total;
-};
-
-export const getTotalDeposits = (): number => {
-  const total = transactions
-    .filter(transaction => transaction.transaction_type === 'deposit')
-    .reduce((acc, transaction) => acc + parseInt(transaction.amount), 0);
-  return total;
-};
-
-export const getTotalWithdrawals = (): number => {
-  const total = transactions
-    .filter(transaction => transaction.transaction_type === 'withdraw')
-    .reduce((acc, transaction) => acc + parseInt(transaction.amount), 0);
-  return total;
-};
-
-export const getPendingTransactions = (): number => {
-  return 0;
-};
-
 export interface ChartData {
   date: string;
   deposits: number;
@@ -49,16 +17,100 @@ export interface ChartData {
   balance: number;
 }
 
-export const getChartData = (): ChartData[] => {
-  const transactions = getTransactions();
+export interface TransactionFilters {
+  startDate?: Date;
+  endDate?: Date;
+  accounts?: string[];
+  industries?: string[];
+  states?: string[];
+}
 
-  transactions.sort((a, b) => a.date - b.date);
+const transactions: Transaction[] = transactionsData as Transaction[];
+
+export const getTransactions = (filters?: TransactionFilters): Transaction[] => {
+  let filteredTransactions = transactions;
+
+  if (filters) {
+    const { startDate, endDate, accounts, industries, states } = filters;
+
+    if (startDate) {
+      filteredTransactions = filteredTransactions.filter(
+        transaction => new Date(transaction.date) >= startDate
+      );
+    }
+
+    if (endDate) {
+      filteredTransactions = filteredTransactions.filter(
+        transaction => new Date(transaction.date) <= endDate
+      );
+    }
+
+    if (accounts && accounts.length > 0) {
+      filteredTransactions = filteredTransactions.filter(transaction =>
+        accounts.includes(transaction.account)
+      );
+    }
+
+    if (industries && industries.length > 0) {
+      filteredTransactions = filteredTransactions.filter(transaction =>
+        industries.includes(transaction.industry)
+      );
+    }
+
+    if (states && states.length > 0) {
+      filteredTransactions = filteredTransactions.filter(transaction =>
+        states.includes(transaction.state)
+      );
+    }
+  }
+
+  return filteredTransactions;
+};
+
+export const getTotalAmount = (filters?: TransactionFilters): number => {
+  const filteredTransactions = getTransactions(filters);
+  const total = filteredTransactions.reduce((acc, transaction) => {
+    const amount = parseInt(transaction.amount);
+    return acc + (transaction.transaction_type === 'deposit' ? amount : -amount);
+  }, 0);
+  return total;
+};
+
+export const getTotalDeposits = (filters?: TransactionFilters): number => {
+  const filteredTransactions = getTransactions(filters);
+  const total = filteredTransactions
+    .filter(transaction => transaction.transaction_type === 'deposit')
+    .reduce((acc, transaction) => acc + parseInt(transaction.amount), 0);
+  return total;
+};
+
+export const getTotalWithdrawals = (filters?: TransactionFilters): number => {
+  const filteredTransactions = getTransactions(filters);
+  const total = filteredTransactions
+    .filter(transaction => transaction.transaction_type === 'withdraw')
+    .reduce((acc, transaction) => acc + parseInt(transaction.amount), 0);
+  return total;
+};
+
+export const getPendingTransactions = (filters?: TransactionFilters): number => {
+  const filteredTransactions = getTransactions(filters);
+  const pendingCount = filteredTransactions.filter(
+    transaction => new Date(transaction.date) > new Date()
+  ).length;
+
+  return pendingCount;
+};
+
+export const getChartData = (filters?: TransactionFilters): ChartData[] => {
+  const filteredTransactions = getTransactions(filters);
+
+  filteredTransactions.sort((a, b) => a.date - b.date);
 
   const dataMap = new Map<string, ChartData>();
 
   let balance = 0;
 
-  transactions.forEach(transaction => {
+  filteredTransactions.forEach(transaction => {
     const date = new Date(transaction.date).toLocaleDateString('pt-BR');
 
     if (!dataMap.has(date)) {

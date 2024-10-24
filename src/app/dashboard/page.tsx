@@ -9,20 +9,25 @@ import {
   getTotalWithdrawals,
   getPendingTransactions,
   getChartData,
-  ChartData
+  ChartData,
 } from '@/services/transactionsService';
 import SummaryCard from '@/components/SummaryCard';
 import StackedBarChart from '@/components/StackedBarChart';
 import LineChartComponent from '@/components/LineChartComponent';
+import FilterBar from '@/components/FilterBar';
+import Sidebar from '@/components/Sidebar';
 import {
-  DashboardContainer,
+  DashboardWrapper,
+  ContentWrapper,
   Header,
-  LogoutButton,
   CardsContainer,
 } from './styles';
 
+import { useFilter } from '@/contexts/FilterContext';
+
 const DashboardPage: React.FC = () => {
   const router = useRouter();
+  const { filters } = useFilter();
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [totalDeposits, setTotalDeposits] = useState<number>(0);
@@ -37,19 +42,22 @@ const DashboardPage: React.FC = () => {
     if (!loggedIn) {
       router.replace('/login');
     } else {
-      setTotalAmount(getTotalAmount());
-      setTotalDeposits(getTotalDeposits());
-      setTotalWithdrawals(getTotalWithdrawals());
-      setPendingTransactions(getPendingTransactions());
-      setChartData(getChartData());
+      setTotalAmount(getTotalAmount(filters));
+      setTotalDeposits(getTotalDeposits(filters));
+      setTotalWithdrawals(getTotalWithdrawals(filters));
+      setPendingTransactions(getPendingTransactions(filters));
+      setChartData(getChartData(filters));
     }
-  }, []);
+  }, [filters]);
 
   if (authenticated === null) {
     return (
-      <DashboardContainer>
-        <p>Carregando...</p>
-      </DashboardContainer>
+      <DashboardWrapper>
+        <Sidebar />
+        <ContentWrapper>
+          <p>Carregando...</p>
+        </ContentWrapper>
+      </DashboardWrapper>
     );
   }
 
@@ -58,24 +66,30 @@ const DashboardPage: React.FC = () => {
   }
 
   return (
-    <DashboardContainer>
-      <Header>
-        <h1>Dashboard Financeiro</h1>
-        <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
-      </Header>
-      <CardsContainer>
-        <SummaryCard title="Saldo Total" amount={totalAmount} color="#0070f3" />
-        <SummaryCard title="Receitas" amount={totalDeposits} color="#28a745" />
-        <SummaryCard title="Despesas" amount={totalWithdrawals} color="#dc3545" />
-        <SummaryCard
-          title="Transações Pendentes"
-          amount={pendingTransactions}
-          color="#ffc107"
-        />
-      </CardsContainer>
-      <StackedBarChart data={chartData} />
-      <LineChartComponent data={chartData} />
-    </DashboardContainer>
+    <DashboardWrapper>
+      <Sidebar />
+      <ContentWrapper>
+        <Header>
+          <h1>Dashboard Financeiro</h1>
+        </Header>
+
+        <FilterBar />
+
+        <CardsContainer>
+          <SummaryCard title="Saldo Total" amount={totalAmount} color="#0070f3" />
+          <SummaryCard title="Receitas" amount={totalDeposits} color="#28a745" />
+          <SummaryCard title="Despesas" amount={totalWithdrawals} color="#dc3545" />
+          <SummaryCard
+            title="Transações Pendentes"
+            amount={pendingTransactions}
+            color="#ffc107"
+          />
+        </CardsContainer>
+
+        <StackedBarChart data={chartData} />
+        <LineChartComponent data={chartData} />
+      </ContentWrapper>
+    </DashboardWrapper>
   );
 
   function handleLogout() {
