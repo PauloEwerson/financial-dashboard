@@ -10,9 +10,16 @@ export interface Transaction {
   state: string;
 }
 
+export interface ChartData {
+  date: string;
+  deposits: number;
+  withdrawals: number;
+  balance: number;
+}
+
 export interface TransactionFilters {
-  startDate?: number;
-  endDate?: number;
+  startDate?: Date;
+  endDate?: Date;
   accounts?: string[];
   industries?: string[];
   states?: string[];
@@ -28,13 +35,13 @@ export const getTransactions = (filters?: TransactionFilters): Transaction[] => 
 
     if (startDate) {
       filteredTransactions = filteredTransactions.filter(
-        transaction => transaction.date >= startDate
+        transaction => new Date(transaction.date) >= startDate
       );
     }
 
     if (endDate) {
       filteredTransactions = filteredTransactions.filter(
-        transaction => transaction.date <= endDate
+        transaction => new Date(transaction.date) <= endDate
       );
     }
 
@@ -88,18 +95,11 @@ export const getTotalWithdrawals = (filters?: TransactionFilters): number => {
 export const getPendingTransactions = (filters?: TransactionFilters): number => {
   const filteredTransactions = getTransactions(filters);
   const pendingCount = filteredTransactions.filter(
-    transaction => transaction.date > Date.now()
+    transaction => new Date(transaction.date) > new Date()
   ).length;
 
   return pendingCount;
 };
-
-export interface ChartData {
-  date: string;
-  deposits: number;
-  withdrawals: number;
-  balance: number;
-}
 
 export const getChartData = (filters?: TransactionFilters): ChartData[] => {
   const filteredTransactions = getTransactions(filters);

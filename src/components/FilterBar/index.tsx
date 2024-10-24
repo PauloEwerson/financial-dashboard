@@ -1,9 +1,20 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { FilterContainer, FilterGroup, FilterLabel, FilterSelect, FilterButton } from './styles';
+import { Select, DatePicker } from 'antd';
+import { ReloadOutlined } from '@ant-design/icons';
+import {
+  FilterContainer,
+  FilterGroup,
+  FilterLabel,
+  FilterButtonStyled,
+} from './styles';
 import { useFilter } from '@/contexts/FilterContext';
 import { getTransactions } from '@/services/transactionsService';
+import { Dayjs } from 'dayjs';
+
+const { RangePicker } = DatePicker;
+const { Option } = Select;
 
 const FilterBar: React.FC = () => {
   const { filters, setFilters } = useFilter();
@@ -22,75 +33,126 @@ const FilterBar: React.FC = () => {
     setFilters({});
   };
 
+  const handleDateChange = (
+    dates: [Dayjs | null, Dayjs | null] | null,
+    // dateStrings: [string, string]
+  ) => {
+    if (dates && dates[0] && dates[1]) {
+      setFilters(prev => ({
+        ...prev,
+        startDate: dates[0]!.toDate(),
+        endDate: dates[1]!.toDate(),
+      }));
+    } else {
+      setFilters(prev => ({
+        ...prev,
+        startDate: undefined,
+        endDate: undefined,
+      }));
+    }
+  };
+
   return (
     <FilterContainer>
       <FilterGroup>
         <FilterLabel htmlFor="accounts-filter">Conta:</FilterLabel>
-        <FilterSelect
-          id="accounts-filter"
-          multiple
+        <Select
+          mode="multiple"
+          allowClear
+          showSearch
+          optionFilterProp="children"
+          placeholder="Selecione as contas"
           value={filters.accounts || []}
-          onChange={e =>
+          onChange={value =>
             setFilters(prev => ({
               ...prev,
-              accounts: Array.from(e.target.selectedOptions, option => option.value),
+              accounts: value.length > 0 ? value : undefined,
             }))
           }
-          title="Selecione contas para filtrar"
+          style={{ minWidth: '200px' }}
+          id="accounts-filter"
+          aria-labelledby="accounts-filter-label"
         >
           {accounts.map(account => (
-            <option key={account} value={account}>
+            <Option key={account} value={account}>
               {account}
-            </option>
+            </Option>
           ))}
-        </FilterSelect>
+        </Select>
       </FilterGroup>
 
       <FilterGroup>
         <FilterLabel htmlFor="industries-filter">Indústria:</FilterLabel>
-        <FilterSelect
-          id="industries-filter"
-          multiple
+        <Select
+          mode="multiple"
+          allowClear
+          showSearch
+          optionFilterProp="children"
+          placeholder="Selecione as indústrias"
           value={filters.industries || []}
-          onChange={e =>
+          onChange={value =>
             setFilters(prev => ({
               ...prev,
-              industries: Array.from(e.target.selectedOptions, option => option.value),
+              industries: value.length > 0 ? value : undefined,
             }))
           }
-          title="Selecione industrias para filtrar"
+          style={{ minWidth: '200px' }}
+          id="industries-filter"
+          aria-labelledby="industries-filter-label"
         >
           {industries.map(industry => (
-            <option key={industry} value={industry}>
+            <Option key={industry} value={industry}>
               {industry}
-            </option>
+            </Option>
           ))}
-        </FilterSelect>
+        </Select>
       </FilterGroup>
 
       <FilterGroup>
         <FilterLabel htmlFor="states-filter">Estado:</FilterLabel>
-        <FilterSelect
-          id="states-filter"
-          multiple
+        <Select
+          mode="multiple"
+          allowClear
+          showSearch
+          optionFilterProp="children"
+          placeholder="Selecione os estados"
           value={filters.states || []}
-          onChange={e =>
+          onChange={value =>
             setFilters(prev => ({
               ...prev,
-              states: Array.from(e.target.selectedOptions, option => option.value),
+              states: value.length > 0 ? value : undefined,
             }))
           }
-          title="Selecione o estadp para filtrar"
+          style={{ minWidth: '200px' }}
+          id="states-filter"
+          aria-labelledby="states-filter-label"
         >
           {states.map(state => (
-            <option key={state} value={state}>
+            <Option key={state} value={state}>
               {state}
-            </option>
+            </Option>
           ))}
-        </FilterSelect>
+        </Select>
       </FilterGroup>
 
-      <FilterButton onClick={handleResetFilters}>Limpar Filtros</FilterButton>
+      <FilterGroup>
+        <FilterLabel>Período:</FilterLabel>
+        <RangePicker
+          format="DD/MM/YYYY"
+          onChange={handleDateChange}
+          style={{ minWidth: '250px' }}
+          allowClear
+          placeholder={['Data Início', 'Data Fim']}
+        />
+      </FilterGroup>
+
+      <FilterButtonStyled
+        type="primary"
+        onClick={handleResetFilters}
+        icon={<ReloadOutlined />}
+      >
+        Limpar Filtros
+      </FilterButtonStyled>
     </FilterContainer>
   );
 };

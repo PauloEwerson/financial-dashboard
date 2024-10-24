@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from 'antd';
 
 export const FilterContainer = styled.div`
   background-color: #ffffff;
@@ -9,33 +10,19 @@ export const FilterContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 20px;
 `;
 
 export const FilterGroup = styled.div`
-  margin-right: 20px;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const FilterLabel = styled.label`
-  margin-right: 8px;
   font-weight: bold;
+  margin-bottom: 5px;
 `;
 
-export const FilterSelect = styled.select`
-  padding: 8px;
-  border-radius: 4px;
-`;
-
-export const FilterButton = styled.button`
-  padding: 8px 16px;
-  background-color: #0070f3;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+export const FilterButtonStyled = styled(Button)`
   margin-left: auto;
-
-  &:hover {
-    background-color: #005bb5;
-  }
 `;
