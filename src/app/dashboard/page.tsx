@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -19,26 +19,37 @@ import {
 
 const DashboardPage: React.FC = () => {
   const router = useRouter();
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [totalDeposits, setTotalDeposits] = useState(0);
-  const [totalWithdrawals, setTotalWithdrawals] = useState(0);
-  const [pendingTransactions, setPendingTransactions] = useState(0);
+  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
+  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [totalDeposits, setTotalDeposits] = useState<number>(0);
+  const [totalWithdrawals, setTotalWithdrawals] = useState<number>(0);
+  const [pendingTransactions, setPendingTransactions] = useState<number>(0);
 
   useEffect(() => {
-    if (!isLoggedIn()) {
-      router.push('/login');
+    const loggedIn = isLoggedIn();
+    setAuthenticated(loggedIn);
+
+    if (!loggedIn) {
+      router.replace('/login');
     } else {
       setTotalAmount(getTotalAmount());
       setTotalDeposits(getTotalDeposits());
       setTotalWithdrawals(getTotalWithdrawals());
       setPendingTransactions(getPendingTransactions());
     }
-  }, [router]);
+  }, []);
 
-  const handleLogout = () => {
-    logout();
-    router.push('/login');
-  };
+  if (authenticated === null) {
+    return (
+      <DashboardContainer>
+        <p>Carregando...</p>
+      </DashboardContainer>
+    );
+  }
+
+  if (!authenticated) {
+    return null;
+  }
 
   return (
     <DashboardContainer>
@@ -58,6 +69,11 @@ const DashboardPage: React.FC = () => {
       </CardsContainer>
     </DashboardContainer>
   );
+
+  function handleLogout() {
+    logout();
+    router.push('/login');
+  }
 };
 
 export default DashboardPage;
