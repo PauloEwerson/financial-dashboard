@@ -24,6 +24,7 @@ export const getTotalAmount = (): number => {
   return total;
 };
 
+
 export const getTotalDeposits = (): number => {
   const total = transactions
     .filter(transaction => transaction.transaction_type === 'deposit')
