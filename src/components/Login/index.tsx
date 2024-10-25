@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const LoginContainer = styled.div`
-
-`;
+const LoginContainer = styled.div``;
 
 const LoginForm: React.FC = () => {
   return (

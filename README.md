@@ -1,38 +1,167 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Financial Dashboard
 
-First, run the development server:
+Bem-vindo ao **Financial Dashboard**, uma aplicação web que fornece uma visão geral das transações financeiras, permitindo filtragem e visualização de dados através de gráficos interativos.
 
-```bash
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Recursos](#recursos)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Pré-requisitos](#pré-requisitos)
+- [Instalação](#instalação)
+- [Execução da Aplicação](#execução-da-aplicação)
+- [Execução dos Testes](#execução-dos-testes)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Detalhes Importantes](#detalhes-importantes)
+- [Contribuição](#contribuição)
+- [Licença](#licença)
+
+## Visão Geral
+
+O **Financial Dashboard** é uma ferramenta desenvolvida em Next.js com TypeScript que permite aos usuários visualizar e analisar transações financeiras. A aplicação inclui funcionalidades de login, filtragem de dados e visualização através de gráficos de linhas e barras.
+
+## Recursos
+
+- **Autenticação**: Login para acesso ao dashboard.
+- **Filtragem Avançada**: Filtre transações por conta, indústria, estado e período.
+- **Visualização de Dados**: Gráficos interativos para análise de receitas, despesas e saldo ao longo do tempo.
+- **Responsividade**: Design responsivo para diferentes tamanhos de tela.
+- **Persistência de Filtros**: Os filtros aplicados são salvos no `localStorage` para futuras sessões.
+
+## Tecnologias Utilizadas
+
+- **Next.js**: Framework React para desenvolvimento web.
+- **TypeScript**: Superset do JavaScript para tipagem estática.
+- **Styled-components**: Biblioteca para estilização de componentes React.
+- **Ant Design**: Biblioteca de componentes UI.
+- **Recharts**: Biblioteca para criação de gráficos em React.
+- **Jest**: Framework de testes em JavaScript.
+- **Testing Library**: Conjunto de utilitários para testar componentes React.
+
+## Pré-requisitos
+
+Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em sua máquina:
+
+- **Node.js** (versão 14 ou superior)
+- **npm** (gerenciador de pacotes do Node.js)
+
+## Instalação
+
+1. **Clone o repositório:**
+
+   \`\`\`bash
+   git clone https://github.com/seu-usuario/financial-dashboard.git
+   \`\`\`
+
+2. **Navegue até o diretório do projeto:**
+
+   \`\`\`bash
+   cd financial-dashboard
+   \`\`\`
+
+3. **Instale as dependências:**
+
+   \`\`\`bash
+   npm install
+   \`\`\`
+
+## Execução da Aplicação
+
+Para iniciar a aplicação em modo de desenvolvimento:
+
+\`\`\`bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+\`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A aplicação estará disponível em \`http://localhost:3000\`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Execução dos Testes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Para executar os testes unitários:
 
-## Learn More
+\`\`\`bash
+npm run test
+\`\`\`
 
-To learn more about Next.js, take a look at the following resources:
+## Estrutura do Projeto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+\`\`\`bash
+financial-dashboard/
+├── src/
+│   ├── app/
+│   │   ├── dashboard/
+│   │   │   └── page.tsx
+│   │   ├── login/
+│   │   │   └── page.tsx
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components/
+│   │   ├── FilterBar/
+│   │   │   ├── index.tsx
+│   │   │   └── styles.ts
+│   │   ├── LineChartComponent/
+│   │   │   ├── index.tsx
+│   │   │   └── styles.ts
+│   │   ├── LoginForm/
+│   │   │   ├── index.tsx
+│   │   │   └── styles.ts
+│   │   ├── Sidebar/
+│   │   │   ├── index.tsx
+│   │   │   └── styles.ts
+│   │   ├── StackedBarChart/
+│   │   │   ├── index.tsx
+│   │   │   └── styles.ts
+│   │   └── SummaryCard/
+│   │       ├── index.tsx
+│   │       └── styles.ts
+│   ├── contexts/
+│   │   └── FilterContext.tsx
+│   ├── data/
+│   │   └── transactions.json
+│   ├── lib/
+│   │   └── registry.tsx
+│   ├── services/
+│   │   └── transactionsService.ts
+│   ├── styles/
+│   │   └── GlobalStyles.ts
+│   └── utils/
+│       └── auth.ts
+├── jest.config.js
+├── jest.setup.js
+├── babel.config.js
+├── next.config.js
+├── package.json
+├── README.md
+└── .gitignore
+\`\`\`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Detalhes Importantes
 
-## Deploy on Vercel
+- **Login Padrão**: Utilize as credenciais abaixo para acessar o dashboard:
+  - **Usuário**: \`admin\`
+  - **Senha**: \`admin\`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Persistência de Sessão**: A autenticação é armazenada no \`localStorage\`. Certifique-se de que o armazenamento local está habilitado no seu navegador.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# financial-dashboard
-# financial-dashboard
+- **Dados de Transação**: As transações são carregadas a partir do arquivo JSON localizado em \`src/data/transactions.json\`.
+
+- **Filtros Persistentes**: Os filtros aplicados são salvos no \`localStorage\` e serão mantidos mesmo após recarregar a página.
+
+- **Observação sobre Testes**: Caso enfrente problemas ao executar os testes, verifique se todas as dependências relacionadas ao Jest e Babel estão corretamente instaladas e configuradas. Consulte os arquivos \`jest.config.js\` e \`babel.config.js\` para detalhes.
+
+## Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests para melhorar o projeto.
+
+1. **Faça um fork do projeto**
+2. **Crie uma branch para sua feature (\`git checkout -b feature/nova-feature\`)**
+3. **Commit suas alterações (\`git commit -m 'Adiciona nova feature'\`)**
+4. **Faça o push para a branch (\`git push origin feature/nova-feature\`)**
+5. **Abra um Pull Request**
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais informações.
+
+---

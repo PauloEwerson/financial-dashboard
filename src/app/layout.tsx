@@ -6,11 +6,11 @@ import 'antd/dist/reset.css';
 
 export const metadata = {
   title: 'Financial Dashboard',
-  description: 'Dashboard financeiro',
+  description: 'Dashboard financeiro'
 };
 
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {

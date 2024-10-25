@@ -1,15 +1,8 @@
-"use client";
+'use client';
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  Container,
-  Form,
-  Input,
-  Button,
-  Title,
-  ErrorMessage
-} from './styles';
+import { Container, Form, Input, Button, Title, ErrorMessage } from './styles';
 
 const LoginForm: React.FC = () => {
   const router = useRouter();

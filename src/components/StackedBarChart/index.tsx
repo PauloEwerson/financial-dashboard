@@ -1,7 +1,15 @@
 'use client';
 
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
+} from 'recharts';
 import { ChartContainer } from './styles';
 import { ChartData } from '@/services/transactionsService';
 
@@ -21,13 +29,18 @@ const StackedBarChart: React.FC<StackedBarChartProps> = ({ data }) => {
             formatter={(value: number) =>
               (value / 100).toLocaleString('pt-BR', {
                 style: 'currency',
-                currency: 'BRL',
+                currency: 'BRL'
               })
             }
           />
           <Legend />
           <Bar dataKey="deposits" stackId="a" fill="#28a745" name="Receitas" />
-          <Bar dataKey="withdrawals" stackId="a" fill="#dc3545" name="Despesas" />
+          <Bar
+            dataKey="withdrawals"
+            stackId="a"
+            fill="#dc3545"
+            name="Despesas"
+          />
         </BarChart>
       </ResponsiveContainer>
     </ChartContainer>

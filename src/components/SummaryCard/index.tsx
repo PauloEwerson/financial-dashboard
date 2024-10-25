@@ -16,7 +16,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ title, amount, color }) => {
       <Amount color={color}>
         {(amount / 100).toLocaleString('pt-BR', {
           style: 'currency',
-          currency: 'BRL',
+          currency: 'BRL'
         })}
       </Amount>
     </CardContainer>

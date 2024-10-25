@@ -2,14 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { isLoggedIn, logout } from '@/utils/auth';
+import { isLoggedIn } from '@/utils/auth';
 import {
   getTotalAmount,
   getTotalDeposits,
   getTotalWithdrawals,
   getPendingTransactions,
   getChartData,
-  ChartData,
+  ChartData
 } from '@/services/transactionsService';
 import SummaryCard from '@/components/SummaryCard';
 import StackedBarChart from '@/components/StackedBarChart';
@@ -20,7 +20,7 @@ import {
   DashboardWrapper,
   ContentWrapper,
   Header,
-  CardsContainer,
+  CardsContainer
 } from './styles';
 
 import { useFilter } from '@/contexts/FilterContext';
@@ -48,7 +48,7 @@ const DashboardPage: React.FC = () => {
       setPendingTransactions(getPendingTransactions(filters));
       setChartData(getChartData(filters));
     }
-  }, [filters]);
+  }, [filters, router]);
 
   if (authenticated === null) {
     return (
@@ -76,9 +76,21 @@ const DashboardPage: React.FC = () => {
         <FilterBar />
 
         <CardsContainer>
-          <SummaryCard title="Saldo Total" amount={totalAmount} color="#0070f3" />
-          <SummaryCard title="Receitas" amount={totalDeposits} color="#28a745" />
-          <SummaryCard title="Despesas" amount={totalWithdrawals} color="#dc3545" />
+          <SummaryCard
+            title="Saldo Total"
+            amount={totalAmount}
+            color="#0070f3"
+          />
+          <SummaryCard
+            title="Receitas"
+            amount={totalDeposits}
+            color="#28a745"
+          />
+          <SummaryCard
+            title="Despesas"
+            amount={totalWithdrawals}
+            color="#dc3545"
+          />
           <SummaryCard
             title="Transações Pendentes"
             amount={pendingTransactions}
@@ -91,11 +103,6 @@ const DashboardPage: React.FC = () => {
       </ContentWrapper>
     </DashboardWrapper>
   );
-
-  function handleLogout() {
-    logout();
-    router.push('/login');
-  }
 };
 
 export default DashboardPage;

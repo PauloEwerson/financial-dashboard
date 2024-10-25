@@ -7,7 +7,7 @@ import {
   FilterContainer,
   FilterGroup,
   FilterLabel,
-  FilterButtonStyled,
+  FilterButtonStyled
 } from './styles';
 import { useFilter } from '@/contexts/FilterContext';
 import { getTransactions } from '@/services/transactionsService';
@@ -34,20 +34,20 @@ const FilterBar: React.FC = () => {
   };
 
   const handleDateChange = (
-    dates: [Dayjs | null, Dayjs | null] | null,
+    dates: [Dayjs | null, Dayjs | null] | null
     // dateStrings: [string, string]
   ) => {
     if (dates && dates[0] && dates[1]) {
       setFilters(prev => ({
         ...prev,
         startDate: dates[0]!.toDate(),
-        endDate: dates[1]!.toDate(),
+        endDate: dates[1]!.toDate()
       }));
     } else {
       setFilters(prev => ({
         ...prev,
         startDate: undefined,
-        endDate: undefined,
+        endDate: undefined
       }));
     }
   };
@@ -66,7 +66,7 @@ const FilterBar: React.FC = () => {
           onChange={value =>
             setFilters(prev => ({
               ...prev,
-              accounts: value.length > 0 ? value : undefined,
+              accounts: value.length > 0 ? value : undefined
             }))
           }
           style={{ minWidth: '200px' }}
@@ -93,7 +93,7 @@ const FilterBar: React.FC = () => {
           onChange={value =>
             setFilters(prev => ({
               ...prev,
-              industries: value.length > 0 ? value : undefined,
+              industries: value.length > 0 ? value : undefined
             }))
           }
           style={{ minWidth: '200px' }}
@@ -120,7 +120,7 @@ const FilterBar: React.FC = () => {
           onChange={value =>
             setFilters(prev => ({
               ...prev,
-              states: value.length > 0 ? value : undefined,
+              states: value.length > 0 ? value : undefined
             }))
           }
           style={{ minWidth: '200px' }}

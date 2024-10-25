@@ -27,7 +27,9 @@ export interface TransactionFilters {
 
 const transactions: Transaction[] = transactionsData as Transaction[];
 
-export const getTransactions = (filters?: TransactionFilters): Transaction[] => {
+export const getTransactions = (
+  filters?: TransactionFilters
+): Transaction[] => {
   let filteredTransactions = transactions;
 
   if (filters) {
@@ -71,7 +73,9 @@ export const getTotalAmount = (filters?: TransactionFilters): number => {
   const filteredTransactions = getTransactions(filters);
   const total = filteredTransactions.reduce((acc, transaction) => {
     const amount = parseInt(transaction.amount);
-    return acc + (transaction.transaction_type === 'deposit' ? amount : -amount);
+    return (
+      acc + (transaction.transaction_type === 'deposit' ? amount : -amount)
+    );
   }, 0);
   return total;
 };
@@ -92,7 +96,9 @@ export const getTotalWithdrawals = (filters?: TransactionFilters): number => {
   return total;
 };
 
-export const getPendingTransactions = (filters?: TransactionFilters): number => {
+export const getPendingTransactions = (
+  filters?: TransactionFilters
+): number => {
   const filteredTransactions = getTransactions(filters);
   const pendingCount = filteredTransactions.filter(
     transaction => new Date(transaction.date) > new Date()
@@ -118,7 +124,7 @@ export const getChartData = (filters?: TransactionFilters): ChartData[] => {
         date,
         deposits: 0,
         withdrawals: 0,
-        balance,
+        balance
       });
     }
 
