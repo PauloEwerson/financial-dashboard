@@ -1,4 +1,3 @@
-
 # Financial Dashboard
 
 Bem-vindo ao **Financial Dashboard**, uma aplicação web que fornece uma visão geral das transações financeiras, permitindo filtragem e visualização de dados através de gráficos interativos.
