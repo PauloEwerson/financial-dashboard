@@ -10,7 +10,9 @@ interface FilterContextProps {
 
 const FilterContext = createContext<FilterContextProps | undefined>(undefined);
 
-export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
+  children
+}) => {
   const [filters, setFilters] = useState<TransactionFilters>(() => {
     if (typeof window !== 'undefined') {
       const savedFilters = localStorage.getItem('filters');

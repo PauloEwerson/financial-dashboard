@@ -1,7 +1,14 @@
 'use client';
 
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer
+} from 'recharts';
 import { ChartContainer } from './styles';
 import { ChartData } from '@/services/transactionsService';
 
@@ -21,11 +28,16 @@ const LineChartComponent: React.FC<LineChartComponentProps> = ({ data }) => {
             formatter={(value: number) =>
               (value / 100).toLocaleString('pt-BR', {
                 style: 'currency',
-                currency: 'BRL',
+                currency: 'BRL'
               })
             }
           />
-          <Line type="monotone" dataKey="balance" stroke="#0070f3" name="Saldo" />
+          <Line
+            type="monotone"
+            dataKey="balance"
+            stroke="#0070f3"
+            name="Saldo"
+          />
         </LineChart>
       </ResponsiveContainer>
     </ChartContainer>
