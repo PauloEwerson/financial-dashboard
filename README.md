@@ -48,29 +48,29 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em s
 
 1. **Clone o repositório:**
 
-   \`\`\`bash
+   ```bash
    git clone https://github.com/seu-usuario/financial-dashboard.git
-   \`\`\`
+   ```
 
-2. **Navegue até o diretório do projeto:**
+3. **Navegue até o diretório do projeto:**
 
-   \`\`\`bash
+   ```bash
    cd financial-dashboard
-   \`\`\`
+   ```
 
-3. **Instale as dependências:**
+5. **Instale as dependências:**
 
-   \`\`\`bash
+   ```bash
    npm install
-   \`\`\`
-
+   ```
+   
 ## Execução da Aplicação
 
 Para iniciar a aplicação em modo de desenvolvimento:
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 A aplicação estará disponível em \`http://localhost:3000\`.
 
@@ -78,15 +78,15 @@ A aplicação estará disponível em \`http://localhost:3000\`.
 
 Para executar os testes unitários:
 
-\`\`\`bash
+```bash
 npm run test
-\`\`\`
+```
 
 ## Detalhes Importantes
 
 - **Login Padrão**: Utilize as credenciais abaixo para acessar o dashboard:
-  - **Usuário**: \`admin\`
-  - **Senha**: \`admin\`
+  - **Usuário**: admin
+  - **Senha**: admin
 
 - **Persistência de Sessão**: A autenticação é armazenada no \`localStorage\`. Certifique-se de que o armazenamento local está habilitado no seu navegador.
 
