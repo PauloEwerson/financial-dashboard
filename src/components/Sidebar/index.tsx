@@ -4,11 +4,12 @@ import { DashboardOutlined, LogoutOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import { logout } from '@/utils/auth';
 import { SidebarContainer } from './styles';
+import type { MenuInfo } from 'rc-menu/lib/interface';
 
 const Sidebar: React.FC = () => {
   const router = useRouter();
 
-  const handleMenuClick = (e: any) => {
+  const handleMenuClick = (e: MenuInfo) => {
     if (e.key === 'dashboard') {
       router.push('/dashboard');
     } else if (e.key === 'logout') {
