@@ -11,7 +11,6 @@ Bem-vindo ao **Financial Dashboard**, uma aplicação web que fornece uma visão
 - [Instalação](#instalação)
 - [Execução da Aplicação](#execução-da-aplicação)
 - [Execução dos Testes](#execução-dos-testes)
-- [Estrutura do Projeto](#estrutura-do-projeto)
 - [Detalhes Importantes](#detalhes-importantes)
 - [Contribuição](#contribuição)
 - [Licença](#licença)
@@ -81,58 +80,6 @@ Para executar os testes unitários:
 
 \`\`\`bash
 npm run test
-\`\`\`
-
-## Estrutura do Projeto
-
-\`\`\`bash
-financial-dashboard/
-├── src/
-│   ├── app/
-│   │   ├── dashboard/
-│   │   │   └── page.tsx
-│   │   ├── login/
-│   │   │   └── page.tsx
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── components/
-│   │   ├── FilterBar/
-│   │   │   ├── index.tsx
-│   │   │   └── styles.ts
-│   │   ├── LineChartComponent/
-│   │   │   ├── index.tsx
-│   │   │   └── styles.ts
-│   │   ├── LoginForm/
-│   │   │   ├── index.tsx
-│   │   │   └── styles.ts
-│   │   ├── Sidebar/
-│   │   │   ├── index.tsx
-│   │   │   └── styles.ts
-│   │   ├── StackedBarChart/
-│   │   │   ├── index.tsx
-│   │   │   └── styles.ts
-│   │   └── SummaryCard/
-│   │       ├── index.tsx
-│   │       └── styles.ts
-│   ├── contexts/
-│   │   └── FilterContext.tsx
-│   ├── data/
-│   │   └── transactions.json
-│   ├── lib/
-│   │   └── registry.tsx
-│   ├── services/
-│   │   └── transactionsService.ts
-│   ├── styles/
-│   │   └── GlobalStyles.ts
-│   └── utils/
-│       └── auth.ts
-├── jest.config.js
-├── jest.setup.js
-├── babel.config.js
-├── next.config.js
-├── package.json
-├── README.md
-└── .gitignore
 \`\`\`
 
 ## Detalhes Importantes
